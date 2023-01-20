@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "homepage": "https://github.com/potocki92/react-invoices",
+  "homepage": "https://potocki92.github.io/react-invoices/",
   "private": true,
   "scripts": {
     "predeploy": "npm run build",
