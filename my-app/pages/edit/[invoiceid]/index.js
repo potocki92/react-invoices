@@ -48,9 +48,9 @@ const EditItem = (props) => {
   const totalAmount = items.reduce((acc, curr) => acc + curr.total, 0);
 
   // update invoice in database
-  const updateInvoice = async (invoiceId, status) => {
+  const updateInvoice = async (invoiceid, status) => {
     try {
-      const res = await fetch(`/api/edit/${invoiceId}`, {
+      const res = await fetch(`/api/edit/${invoiceid}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const EditItem = (props) => {
 
       const data = await res.json();
 
-      router.push(`/invoices/${invoiceId}`);
+      router.push(`/invoices/${invoiceid}`);
       toast.success(data.message);
     } catch (error) {
       toast.error("Something went wrong!");
@@ -337,14 +337,14 @@ export async function getStaticPaths() {
     fallback: "blocking",
     paths: invoices.map((invoice) => ({
       params: {
-        invoiceId: invoice._id.toString(),
+        invoiceid: invoice._id.toString(),
       },
     })),
   };
 }
 
 export async function getStaticProps(context) {
-  const { invoiceId } = context.params;
+  const { invoiceid } = context.params;
 
   const client = await MongoClient.connect(
     "mongodb+srv://satanista:satanista123@cluster0.zsrttvb.mongodb.net/?retryWrites=true&w=majority",
@@ -353,7 +353,7 @@ export async function getStaticProps(context) {
 
   const db = client.db();
   const collection = db.collection("Invoices");
-  const invoice = await collection.findOne({ _id: ObjectId(invoiceId) });
+  const invoice = await collection.findOne({ _id: ObjectId(invoiceid) });
 
   return {
     props: {
